@@ -1,16 +1,19 @@
 "use client";
 import { AuthContext } from "@/context/AuthProvider";
 import { useGetCoffeesQuery } from "@/features/coffees/coffeesApi";
+import Loader from "@/util/Loader";
 import Link from "next/link";
 import { useContext } from "react";
 
 const ColdCoffees = () => {
   const { data: coffees = [], isLoading } = useGetCoffeesQuery();
+
   const {user} = useContext(AuthContext)
   // Filter only Hot Coffee
   const hotCoffees = coffees.filter(
     (coffee) => coffee.category === "Cold Coffee"
   );
+ 
   return (
     <div className="py-12 px-4 max-w-7xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-[#6F4F37] mb-10">
@@ -18,12 +21,12 @@ const ColdCoffees = () => {
       </h2>
 
       {isLoading ? (
-        <p className="text-center text-gray-600">Loading hot coffees...</p>
+        <Loader/>
       ) : hotCoffees.length === 0 ? (
         <p className="text-center text-red-500">No hot coffee available.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {hotCoffees.map((coffee) => (
+          {hotCoffees?.map((coffee) => (
             <div
               key={coffee._id}
               className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 ease-in-out overflow-hidden"

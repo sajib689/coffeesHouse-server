@@ -1,5 +1,4 @@
+
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "./src/app/layout.js" }
-    ]
-  }
+  "rewrites": []
+}

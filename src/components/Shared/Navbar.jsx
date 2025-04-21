@@ -40,14 +40,14 @@ const Navbar = () => {
         Home
       </Link>
       <Link
-        href="/menu"
+        href="/coffee"
         className={
-          pathname === "/menu"
+          pathname === "/coffee"
             ? "text-coffee-600 font-semibold"
             : "hover:text-coffee-500"
         }
       >
-        Menu
+        Coffee
       </Link>
       <Link
         href="/about"

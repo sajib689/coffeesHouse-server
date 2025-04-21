@@ -2,13 +2,15 @@
 import { useGetCoffeeByIdQuery } from '@/features/coffees/coffeesApi';
 import { useCreateOrderMutation } from '@/features/orders/ordersApi';
 import Loader from '@/util/Loader';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useContext, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
 import { AuthContext } from '@/context/AuthProvider';
 
-const CoffeeDetailsPage = ({id}) => {
+const CoffeeDetailsPage = () => {
+  const { id } = useParams()
+
     const router = useRouter();
       const { user } = useContext(AuthContext);
       const { data: coffee, isLoading, error } = useGetCoffeeByIdQuery(id);
@@ -70,16 +72,16 @@ const CoffeeDetailsPage = ({id}) => {
                 <div className="relative w-full h-80 mb-6 rounded-xl overflow-hidden">
                   <Image
                     src={coffee?.image}
-                    alt={coffee.name}
+                    alt={coffee?.name}
                     layout="fill"
                     objectFit="cover"
                     className="rounded-xl"
                   />
                 </div>
-                <h1 className="text-3xl font-bold text-[#6F4F37] mb-2">{coffee.name}</h1>
-                <p className="text-gray-500 mb-1">Category: {coffee.category}</p>
-                <p className="text-lg text-gray-700 mb-4">{coffee.description}</p>
-                <p className="text-2xl font-bold text-[#6F4F37] mb-6">${coffee.price}</p>
+                <h1 className="text-3xl font-bold text-[#6F4F37] mb-2">{coffee?.name}</h1>
+                <p className="text-gray-500 mb-1">Category: {coffee?.category}</p>
+                <p className="text-lg text-gray-700 mb-4">{coffee?.description}</p>
+                <p className="text-2xl font-bold text-[#6F4F37] mb-6">${coffee?.price}</p>
               </div>
         
               {/* User Info + Address Form + Buy Button */}
@@ -87,8 +89,8 @@ const CoffeeDetailsPage = ({id}) => {
                 <h2 className="text-2xl font-semibold text-[#6F4F37] mb-4">User Information</h2>
                 {user ? (
                   <div className="space-y-2 mb-6">
-                    <p><strong>Name:</strong> {user.displayName || "N/A"}</p>
-                    <p><strong>Email:</strong> {user.email || "N/A"}</p>
+                    <p><strong>Name:</strong> {user?.displayName || "N/A"}</p>
+                    <p><strong>Email:</strong> {user?.email || "N/A"}</p>
                   </div>
                 ) : (
                   <p className="text-gray-500 mb-6">No user is logged in.</p>

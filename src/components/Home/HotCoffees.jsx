@@ -3,6 +3,7 @@ import { useGetCoffeesQuery } from "@/features/coffees/coffeesApi";
 import Link from "next/link";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthProvider";
+import Loader from "@/util/Loader";
 
 const HotCoffees = () => {
   const { data: coffees = [], isLoading } = useGetCoffeesQuery();
@@ -19,12 +20,12 @@ const HotCoffees = () => {
       </h2>
 
       {isLoading ? (
-        <p className="text-center text-gray-600">Loading hot coffees...</p>
+        <Loader/>
       ) : hotCoffees.length === 0 ? (
         <p className="text-center text-red-500">No hot coffee available.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {hotCoffees.map((coffee) => (
+          {hotCoffees?.map((coffee) => (
             <div
               key={coffee._id}
               className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 ease-in-out overflow-hidden"
